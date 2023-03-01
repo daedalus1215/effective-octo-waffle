@@ -1,1 +1,1 @@
-# effective-octo-waffle
+# Effective Python
