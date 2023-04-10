@@ -107,21 +107,31 @@ def collect_account_ids_from_arns(arns: Iterable[str]) -> Set[str]:
     collected_account_ids = set()
     for arn in arns:
         matched = re.match(ARN_REGEX, arn)
-        print(f"matched: {matched}")
         if matched is not None:
-            account_id = matched.groupdict()["account_id"]
+            b = matched.groupdict()
+            account_id = b["account_id"]
             collected_account_ids.add(account_id)
     return collected_account_ids
 
 
-# print(
-#     collect_account_ids_from_arns(
-#         [
-#             "asd1:partitasdasion1:asd1:region1:account1:resource1",
-#             "asd2:partitasdasion2:asd1:region2:account2:resource2",
-#         ]
-#     )
-# )
+sample_arns = [
+    "asd1:partitasdasion1:asd1:region1:account1:resource1",
+    "asd2:partitasdasion2:asd1:region2:account2:resource2",
+]
+
+print(
+    collect_account_ids_from_arns(
+        [
+            "asd1:partitasdasion1:asd1:region1:account1:resource1",
+            "asd2:partitasdasion2:asd1:region2:account2:resource2",
+        ]
+    )
+)
+
+data = [
+    "asd1:partitasdasion1:asd1:region1:account1:resource1",
+    "asd2:partitasdasion2:asd1:region2:account2:resource2",
+]
 
 
 def collect_account_ids_from_arns2(arns: Iterable[str]) -> Set[str]:
@@ -139,9 +149,23 @@ print(
 )
 
 
-def collect_account_ids_from_arns3(arns: Iterable[str]) -> Set[str]:
+def collect_account_ids_from_arns4(arns: Iterable[str]) -> Set[str]:
     return {
-        matched.groupdict()["account_id"]
+        match.groupdict()["account_id"]
         for arn in arns
-        if (matched := re.match(ARN_REGEX, arn)) is not None
+        if (match := re.match(ARN_REGEX, arn)) is not None
     }
+
+
+# print(f"new and cool stuff {collect_account_ids_from_arns4(arns=sample_arns)}")
+
+
+def what2(arns: Iterable[str]) -> Set[str]:
+    return (
+        matched.groupdict["account_id"]
+        for arn in arns
+        if (matched := re.match(ARN_REGEX, arn) is not None)
+    )
+
+
+print(f"what2 {what2(data)}")
